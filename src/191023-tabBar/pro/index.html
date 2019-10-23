@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1471409_g6hvg6yqo15.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="nav-tab" ref="navtab">
+    <div class="nav-tab-item" :class="{'active':activeIndex == index}" v-for="(item,index) in items"
+      @click="activeIndex = index"
+      :style="{'width': `${activeIndex == index ? itemWidth + 10: itemWidth}%`}">
+      <i :class=['nav-tab-item_icon','iconfont',item.icon]></i>
+      <p class="nav-tab-item_label">{{item.label}}</p>
+    </div>
+    <div class="nav-tab-overlay" :style="{'left':`${activeIndex * itemWidth}%`,'width':`${itemWidth + 10}%`}"></div>
+  </div>
+
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <script>
+    new Vue({
+      el: '#nav-tab',
+      data() {
+        return {
+          items: [
+            { icon: 'icon-shouye', label: '首页' },
+            { icon: 'icon-guanzhu', label: '关注' },
+            { icon: 'icon-faxian', label: '发现' },
+            { icon: 'icon-xiaoxizhongxin', label: '消息' },
+            // { icon: 'icon-faxian', label: '发现' },
+            // { icon: 'icon-guanzhu', label: '关注' },
+          ],
+          activeIndex: 0,
+        }
+      },
+      computed: {
+        itemWidth() {
+          return 90 / this.items.length;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

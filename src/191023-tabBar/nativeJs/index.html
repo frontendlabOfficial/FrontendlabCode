@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1471409_g6hvg6yqo15.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div id="nav-tab">
+    <div class="nav-tab-item active">
+      <i class="nav-tab-item_icon iconfont icon-shouye"></i>
+      <p class="nav-tab-item_label">首页</p>
+    </div>
+
+    <div class="nav-tab-item">
+      <i class="nav-tab-item_icon iconfont icon-guanzhu"></i>
+      <p class="nav-tab-item_label">关注</p>
+    </div>
+
+    <div class="nav-tab-item">
+      <i class="nav-tab-item_icon iconfont icon-faxian"></i>
+      <p class="nav-tab-item_label">发现</p>
+    </div>
+
+    <div class="nav-tab-item">
+      <i class="nav-tab-item_icon iconfont icon-xiaoxizhongxin"></i>
+      <p class="nav-tab-item_label">消息中心</p>
+    </div>
+    <div class="nav-tab-overlay"></div>
+  </div>
+  
+  <script>
+    let activeIndex = 0;
+    let items = document.getElementsByClassName("nav-tab-item");
+
+    for (let i = 0; i < items.length; i++) {
+      items[i].addEventListener('click', function () {
+        this.classList.add("active");
+        items[activeIndex].classList.remove("active");
+        activeIndex = i;
+        document.querySelector(".nav-tab-overlay").style.left = `${activeIndex * 130}px`
+      })
+    }
+  </script>
+</body>
+
+</html>
