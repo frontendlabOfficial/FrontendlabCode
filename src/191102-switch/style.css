@@ -1,0 +1,124 @@
+/* 
+  配色方案:
+  背景色:a2ade7 
+  副色:d3d4ec
+  主色:275efe 
+*/
+
+/* 
+整体思路:
+1.想实现自定义按钮，需要先覆盖掉默认样式，这里我们仅需要将input隐藏即将display设置为none即可
+2.接下来要设置自己的样式，我们之所以可以仅用css自定义样式，是因为label被选中后,其对应的input会添加上:checked这个伪类元素，
+利用这个机制，我们便可以判断出选中与否这两个状态，从而利用css实现自定义的切换效果
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+
+  /* 使内容居中 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #a2ade7;
+}
+
+.switch {
+  cursor: pointer;
+
+  /* position设为relative,这样其子元素设置为absolute时才会以该元素的位置为基准 */
+  position: relative;
+}
+
+.switch input {
+  display: none;
+}
+
+/* 
+代码好几处用到了before和after元素,主要是为了代码的简洁性，对这两个伪类元素不了解的可以参考:
+before:https://developer.mozilla.org/zh-CN/docs/Web/CSS/::before
+after:https://developer.mozilla.org/zh-CN/docs/Web/CSS/::after 
+*/
+
+.switch::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  /* 即使无内容也必须设置为'',否则不会显示 */
+  content: "";
+
+  display: block;
+  width: 60px;
+  height: 32px;
+  background-color: white;
+  border-radius: 16px;
+}
+
+input + .line::before,
+input + .line::after {
+  position: absolute;
+
+  top: 14px;
+
+  content: "";
+  width: 24px;
+  height: 4px;
+
+  background-color: #d3d4ec;
+  transition: 0.3s;
+}
+
+input + .line::before {
+  transform: scaleX(0);
+  left: 4px;
+
+  /* 表示transform的起始点 格式为 [x][y][z] 亦可用百分比表示 详情https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-origin */
+  transform-origin: left;
+}
+
+input + .line::after {
+  left: 32px;
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+input:checked + .line::before {
+  transform: scaleX(1);
+}
+
+input:checked + .line::after {
+  transform: scaleX(0);
+}
+
+input + .line span::before {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+  /* inset设置内阴影 这里仅设置了扩散半径 详情 https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow */
+  box-shadow: inset 0 0 0 4px #d3d4ec;
+  background-color: #fff;
+  transition: 0.3s;
+}
+
+input:checked + .line span::before {
+  box-shadow: inset 0 0 0 12px #275efe;
+  left: 32px;
+}
+
+input + .line span {
+  line-height: 32px;
+  padding-left: 68px;
+  font-size: 20px;
+}
